@@ -38,9 +38,4 @@ Esto permite crear instancias con **dificultad tunable** de forma sistemática, 
 
 ---
 
-## 🚀 Cómo usar
 
-### 1. Requisitos
-
-```bash
-pip install numpy
