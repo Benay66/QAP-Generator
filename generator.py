@@ -24,7 +24,6 @@ def read_QAP(filename):
 		])
 		return(np.array(d_matrix),np.array(h_matrix),n)
 
-# Function that prints a QAP instance in QAPLIB format
 def print_QAP(d_matrix,h_matrix,n,filename):
 	with open(filename,"+w") as f:
 		print(str(n),file=f)
@@ -136,31 +135,14 @@ def compute_variance(d_matrix, l_matrix, n, n_samples=5000):
     return np.var(values)
 
 
-# ─────────────────────────────────────────────
-#  Generación de instancias con pesos β
-#
-#  H_GEN = Σ_λ  sqrt(α_λ) / sqrt(Var[g^λ])  *  L^λ
-#
-#  donde α_λ = sqrt(β_i / num_subinstancias_de_orden_i)
-#
-#  Los β son los pesos por orden:
-#    β1 = peso de interacciones de primer orden  (sub-instancia n_1_1)
-#    β2 = peso de interacciones de segundo orden (sub-instancias n_2_2 y n_2_1_1)
-#
-#  Restricción: β1 + β2 = 1  (y β1, β2 ≥ 0)
-# ─────────────────────────────────────────────
+
+##  H_GEN = Σ_λ  sqrt(α_λ) / sqrt(Var[g^λ])  *  L^λ
+##  donde α_λ = sqrt(β_i / num_subinstancias_de_orden_i)
+
 
 def generate_instance(d_matrix, sub_instances, variances, betas):
     """
-    Genera una nueva instancia QAP combinando las sub-instancias con los pesos β.
-
-    Parámetros:
-        d_matrix      : matriz de distancias (se mantiene fija)
-        sub_instances : dict con claves 'n_1_1', 'n_2_2', 'n_2_1_1'
-                        y valores las matrices L^λ correspondientes
-        variances     : dict con las mismas claves y los valores Var[g^λ]
-        betas         : dict con claves 'beta1', 'beta2'
-                        representando el peso de cada orden
+    Genera una nueva instancia QAP combinando las sub-instancias con los pesos 
 
     Devuelve:
         h_gen : la nueva matriz de flujos generada
